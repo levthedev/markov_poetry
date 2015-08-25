@@ -17,15 +17,15 @@ class MarkyMark
     p str.downcase
   end
 
+  def self.generate_hash(words)
+    @dic = Hash.new { |hash, key| hash[key] = [] }
+    words.map.with_index {|w,i| @dic[w] << words[i+1]}
+  end
+
   def self.load_file(path)
     Dir.chdir(File.dirname(__FILE__))
     lyrics = File.open(path, "r")
     lyrics.read.gsub("\n\n", " / ")
-  end
-
-  def self.generate_hash(words)
-    @dic = Hash.new { |hash, key| hash[key] = [] }
-    words.map.with_index {|w,i| @dic[w] << words[i+1]}
   end
 end
 
