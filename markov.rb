@@ -19,7 +19,7 @@ class MarkyMark
 
   def self.generate_hash(words)
     @dic = Hash.new { |hash, key| hash[key] = [] }
-    words.map.with_index {|w,i| @dic[w] << words[i+1]}
+    words.map.with_index { |word, index| @dic[word] << words[index + 1] }
   end
 
   def self.load_file(path)
