@@ -1,15 +1,11 @@
 class MarkyMark
-  attr_accessor :str, :dic
-
   def self.and_the_funky_bunch(path)
-    str = self.load_file(path)
-    words = str.split(" ")
-
-    @dic = Hash.new { |hash, key| hash[key] = [] }
-    words.map.with_index {|w,i| @dic[w] << words[i+1]}
-
-    self.generate_string(words)
+    words = load_file(path).split(" ")
+    generate_hash(words)
+    generate_string(words)
   end
+
+  private
 
   def self.generate_string(words)
     str = ""
@@ -23,8 +19,13 @@ class MarkyMark
 
   def self.load_file(path)
     Dir.chdir(File.dirname(__FILE__))
-    lyrics = File.open("good_vibrations.txt", "r")
-    good_vibrations = lyrics.read.gsub("\n\n", " / ")
+    lyrics = File.open(path, "r")
+    lyrics.read.gsub("\n\n", " / ")
+  end
+
+  def self.generate_hash(words)
+    @dic = Hash.new { |hash, key| hash[key] = [] }
+    words.map.with_index {|w,i| @dic[w] << words[i+1]}
   end
 end
 
